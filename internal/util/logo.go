@@ -1,9 +1,9 @@
 package util
 
-//created by
-//https://patorjk.com/software/taag/#p=testall&f=Graffiti&t=goBark
-//https://textkool.com/en/test-ascii-art-generator?text=goBark
 var (
+	//created by
+	//https://patorjk.com/software/taag/#p=testall&f=Graffiti&t=goBark
+	//https://textkool.com/en/test-ascii-art-generator?text=goBark
 	// Logo for goBark.
 	Logo = `
 

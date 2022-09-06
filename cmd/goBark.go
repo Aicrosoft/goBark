@@ -5,9 +5,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/Aicrosoft/goBark/internal/util"
 	log "github.com/sirupsen/logrus"
 
+	"github.com/Aicrosoft/goBark/internal/util"
 	"github.com/fatih/color"
 )
 
