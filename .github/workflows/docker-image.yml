@@ -35,7 +35,7 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
           tags: |
-            timothyye/godns:latest
-            timothyye/godns:${{steps.tag.outputs.tag}}
-            ghcr.io/timothyye/godns:latest
-            ghcr.io/timothyye/godns:${{steps.tag.outputs.tag}}
+            aicrosoft/gobark:latest
+            aicrosoft/gobark:${{steps.tag.outputs.tag}}
+            ghcr.io/aicrosoft/gobark:latest
+            ghcr.io/aicrosoft/gobark:${{steps.tag.outputs.tag}}
