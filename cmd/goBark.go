@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	//optConf = flag.String("c", "./config.json", "Specify a config file")
+	//optConf = flag.String("c", "./config.json", "Specify a config file") .
 	optHelp = flag.Bool("h", false, "Show help")
 
 	// Version is current version of GoDNS.
@@ -26,7 +26,6 @@ func init() {
 	IsDebug, _ = strconv.ParseBool(DebugMode)
 	if IsDebug {
 		log.SetOutput(os.Stdout)
-		//log.SetFormatter(&diagnose.DebugFormatter{})
 		log.SetFormatter(&log.TextFormatter{
 			ForceColors:     true,
 			TimestampFormat: "15:04:05",
@@ -39,7 +38,7 @@ func init() {
 		log.Info("Info log")
 		log.Warn("Warn log")
 		log.Error("Error log")
-		//log.Fatal("Fatal log") //碰到这种Log会直接中断后续运行。NB！
+		//log.Fatal("Fatal log") //碰到这种Log会直接中断后续运行.
 
 	} else {
 		log.SetOutput(os.Stdout)
