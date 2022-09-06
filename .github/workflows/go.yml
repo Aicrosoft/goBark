@@ -18,6 +18,3 @@ jobs:
         version: latest
     - name: Run unit tests
       run: go test ./...
-
-# help doc:
-# https://help.github.com/articles/workflow-syntax-for-github-actions
