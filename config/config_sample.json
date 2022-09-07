@@ -1,0 +1,14 @@
+{
+  "debug_info": true,
+  "udpServer": {
+    "host": "0.0.0.0",
+    "port": 996,
+    "blockSize": 1024
+  },
+  "disable_capture_message": false,
+  "event_message_ignore_keys": ["dnsmasq-dhcp"],
+  "event_messages": [
+    { "captureReg": "local  IP address (?P<ipv4>((25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d\\d?))", "title": "ipv4[$ipv4] is Captured", "content": "current WAN IPv4 is : $ipv4" },
+    { "captureReg": "\\s+?", "title": "presssomespacewillbecaptured", "content": "content2-$1-$2" }
+  ]
+}
