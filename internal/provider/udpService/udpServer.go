@@ -38,7 +38,7 @@ func (server *UDPServer) Start() error {
 	for {
 		n, remoteAddr, err := listener.ReadFrom(data)
 		if err != nil {
-			log.Error("Read error:%s", err)
+			log.Error(fmt.Printf("Read error:%s", err))
 		}
 
 		log.Debug(fmt.Sprintf("[%s] %s", remoteAddr, data[:n]))
@@ -49,7 +49,7 @@ func (server *UDPServer) Start() error {
 		} else {
 			err = event.Recive(string(data[:n]))
 			if err != nil {
-				log.Error("Trigger event error:%s", err)
+				log.Error(fmt.Sprintf("Trigger event error:%s", err))
 			}
 		}
 

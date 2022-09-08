@@ -18,7 +18,7 @@ type AppSetting struct {
 	UDPServer              SocketSetting     `json:"udpServer"`
 	DisableCaptureMessage  bool              `json:"disable_capture_message"`
 	EventMessageIgnoreKeys []string          `json:"event_message_ignore_keys"`
-	EventMessages          []UdpEventSetting `json:"event_messages"`
+	EventMessages          []UDPEventSetting `json:"event_messages"`
 }
 
 type SocketSetting struct {
@@ -27,7 +27,7 @@ type SocketSetting struct {
 	BlockSize int    `json:"blockSize"`
 }
 
-type UdpEventSetting struct {
+type UDPEventSetting struct {
 	CaptureReg string `json:"captureReg"`
 	Title      string `json:"title"`
 	Content    string `json:"content"`

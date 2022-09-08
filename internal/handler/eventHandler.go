@@ -53,7 +53,7 @@ func (handler *EventHandler) captureEvent(msg string) *EventMessage {
 	return nil
 }
 
-func analyzeEvent(msg string, cset *setting.UdpEventSetting) *EventMessage {
+func analyzeEvent(msg string, cset *setting.UDPEventSetting) *EventMessage {
 	reg := regexp.MustCompile(cset.CaptureReg)
 	matchValues := reg.FindStringSubmatch(msg)
 	groupKeys := reg.SubexpNames()
