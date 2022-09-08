@@ -29,8 +29,8 @@ type SocketSetting struct {
 
 type UDPEventSetting struct {
 	CaptureReg string `json:"captureReg"`
-	Title      string `json:"title"`
 	Content    string `json:"content"`
+	Value      string `json:"value"`
 }
 
 // LoadSetting -- Load settings from config file.

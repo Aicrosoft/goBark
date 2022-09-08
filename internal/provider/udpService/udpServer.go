@@ -47,9 +47,9 @@ func (server *UDPServer) Start() error {
 		if config.DisableCaptureMessage {
 			log.Info(fmt.Sprintf("[%s] %s", remoteAddr, data[:n]))
 		} else {
-			err = event.Recive(string(data[:n]))
-			if err != nil {
-				log.Error(fmt.Sprintf("Trigger event error:%s", err))
+			capEvent := event.Recive(string(data[:n]))
+			if capEvent != nil {
+				log.Info(fmt.Sprintf("Capture Event Result:%+v", capEvent))
 			}
 		}
 

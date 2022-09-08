@@ -3,7 +3,7 @@ linters:
   enable:
     - dupl
     - godot
-    - goimports
+    #- goimports
     - gosimple
     - govet
     - ineffassign

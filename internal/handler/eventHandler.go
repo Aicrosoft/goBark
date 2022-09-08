@@ -15,15 +15,15 @@ type EventHandler struct {
 }
 
 type EventMessage struct {
-	Title   string
 	Content string
+	Value   string
 }
 
 func (handler *EventHandler) Init(conf *setting.AppSetting) {
 	handler.Configuration = conf
 }
 
-func (handler *EventHandler) Recive(msg string) error {
+func (handler *EventHandler) Recive(msg string) *EventMessage {
 
 	if handler.isIgnoreThis(msg) {
 		//log.Info("ignore this")
@@ -34,8 +34,8 @@ func (handler *EventHandler) Recive(msg string) error {
 	if evt != nil {
 		log.Info(fmt.Sprintf("Capture Event:%v", evt))
 	}
+	return evt
 
-	return nil
 }
 
 func (handler *EventHandler) captureEvent(msg string) *EventMessage {
@@ -68,15 +68,15 @@ func analyzeEvent(msg string, cset *setting.UDPEventSetting) *EventMessage {
 		}
 	}
 	emsg := EventMessage{}
-	title, content := cset.Title, cset.Content
+	content, value := cset.Content, cset.Value
 
 	for k, v := range dic {
 		log.Debug(fmt.Sprintf("key:%v ----->  value:%v", k, v))
-		title = strings.Replace(title, "$"+k, v, -1)
 		content = strings.Replace(content, "$"+k, v, -1)
+		value = strings.Replace(value, "$"+k, v, -1)
 	}
 	emsg.Content = content
-	emsg.Title = title
+	emsg.Value = value
 
 	return &emsg
 }
