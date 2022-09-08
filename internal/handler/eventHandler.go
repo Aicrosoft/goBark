@@ -87,7 +87,7 @@ func (handler *EventHandler) isIgnoreThis(msg string) bool {
 		return false
 	}
 	for _, key := range keys {
-		if strings.Index(msg, key) >= 0 {
+		if strings.Contains(msg, key) {
 			return true
 		}
 	}

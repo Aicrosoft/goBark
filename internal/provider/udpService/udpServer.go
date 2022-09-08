@@ -10,18 +10,18 @@ import (
 	"github.com/Aicrosoft/goBark/internal/setting"
 )
 
-//UdpServer struct.
-type UdpServer struct {
+// UDPServer struct.
+type UDPServer struct {
 	Configuration *setting.AppSetting
 }
 
-//inti the UdpServer struct.
-func (server *UdpServer) Init(conf *setting.AppSetting) {
+// inti the UdpServer struct.
+func (server *UDPServer) Init(conf *setting.AppSetting) {
 	server.Configuration = conf
 }
 
-//Start the udpServer.
-func (server *UdpServer) Start() error {
+// Start the udpServer.
+func (server *UDPServer) Start() error {
 	config := server.Configuration
 	ip := net.ParseIP(config.UDPServer.Host)
 	listener, err := net.ListenUDP("udp", &net.UDPAddr{IP: ip, Port: config.UDPServer.Port})

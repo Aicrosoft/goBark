@@ -68,7 +68,7 @@ func LoadSetting(configPath string, settings *AppSetting) error {
 	return initSetting(settings)
 }
 
-func initUdpServer(settings *AppSetting) error {
+func initUDPServer(settings *AppSetting) error {
 	if len(settings.UDPServer.Host) < 7 {
 		settings.UDPServer.Host = "0.0.0.0"
 	}
@@ -83,16 +83,16 @@ func initUdpServer(settings *AppSetting) error {
 	return nil
 }
 
-//init here. Check methods are put the util  package is a best practices.
+// init here. Check methods are put the util  package is a best practices.
 func initSetting(settings *AppSetting) error {
-	if err := initUdpServer(settings); err != nil {
+	if err := initUDPServer(settings); err != nil {
 		return err
 	}
 
 	return loadSecretsFromFile(settings)
 }
 
-//read password from a special file .
+// read password from a special file .
 func loadSecretsFromFile(settings *AppSetting) error {
 	//var err error
 
@@ -106,16 +106,16 @@ func loadSecretsFromFile(settings *AppSetting) error {
 	return nil
 }
 
-func readSecretFromFile(source, value string) (string, error) {
-	if source == "" {
-		return value, nil
-	}
+// func readSecretFromFile(source, value string) (string, error) {
+// 	if source == "" {
+// 		return value, nil
+// 	}
 
-	content, err := os.ReadFile(source)
+// 	content, err := os.ReadFile(source)
 
-	if err != nil {
-		return value, err
-	}
+// 	if err != nil {
+// 		return value, err
+// 	}
 
-	return strings.TrimSpace(string(content)), nil
-}
+// 	return strings.TrimSpace(string(content)), nil
+// }

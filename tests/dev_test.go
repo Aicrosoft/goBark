@@ -9,8 +9,7 @@ import (
 
 func TestIPV4RegMatch(t *testing.T) {
 	str := "Aug 27 09:05:59 pppd[26882]: local  IP address 110.165.101.102"
-	regStr := `\d+\.{3}\d+`
-	regStr = `local  IP address (?P<ipv4>((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?))`
+	regStr := `local  IP address (?P<ipv4>((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?))`
 	reg := regexp.MustCompile(regStr)
 	match := reg.FindStringSubmatch(str)
 	groupNames := reg.SubexpNames()

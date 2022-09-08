@@ -74,7 +74,7 @@ func main() {
 	// 	log.Fatal("Invalid settings: ", err.Error())
 	// }
 
-	udp := udpService.UdpServer{}
+	udp := udpService.UDPServer{}
 	udp.Init(&configuration)
 	udp.Start()
 
