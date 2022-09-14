@@ -27,7 +27,7 @@ func TestBuildReqURL(t *testing.T) {
 }
 
 func TestBuildReqBody(t *testing.T) {
-	//t.Skip()
+	t.Skip() //only one method can be used.
 	w := GetWebhook(&setting.AppSetting{
 		Webhook: setting.WebhookSetting{
 			Enabled:     true,
