@@ -33,6 +33,14 @@
   - [Overview](#overview)
   - [Configuration examples](#configuration-examples)
     - [Default](#default)
+- [Running goBark](#running-gobark)
+  - [Manually](#manually)
+  - [As a manual daemon](#as-a-manual-daemon)
+  - [As a managed daemon (with upstart)](#as-a-managed-daemon-with-upstart)
+  - [As a managed daemon (with systemd)](#as-a-managed-daemon-with-systemd)
+  - [As a Docker container](#as-a-docker-container)
+  - [As a Windows service](#as-a-windows-service)
+- [Special Thanks](#special-thanks)    
 
 ## Supported Platforms
 
@@ -123,20 +131,116 @@ This is a simple default configuration.
   "event_messages": [
     {
       "captureReg": "local  IP address (?P<ipv4>((25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d\\d?))",
+      "title": "PPoE dial success",
       "content": "current WAN IPv4 is : $ipv4",
       "value": "$ipv4"
-    },
-    {
-      "captureReg": "(?P<v>.+)",
-      "content": "capturing any message: $v",
-      "value": "$v"
     }
-  ]
+  ],
+  "use_proxy": false,
+  "socks5_proxy": "",
+  "webhook": {
+    "enabled": false,
+    "url": "https://api.day.app/{change to your bark token}/{{.Title}}/{{.Content}}",
+    "request_body": ""
+  }
 }
 ```
 </details>
 
 ---
 
+
+## Running goBark
+
+There are a few ways to run goBark.
+
+### Manually
+
+Note: make sure to set the `run_once` parameter in your config file so the program will quit after the first run (the default is `false`).
+
+Can be added to `cron` or attached to other events on your system.
+
+```json
+{
+  "...": "...",
+  "run_once": true
+}
+```
+Then run
+
+```bash
+./gobark
+```
+
+### As a manual daemon
+
+```bash
+nohup ./gobark &
+```
+
+Note: when the program stops, it will not be restarted.
+
+### As a managed daemon (with upstart)
+
+1. Install `upstart` first (if not available already)
+2. Copy `./upstart/gobark.conf` to `/etc/init` (and tweak it to your needs)
+3. Start the service:
+
+   ```bash
+   sudo start gobark
+   ```
+
+### As a managed daemon (with systemd)
+
+1. Install `systemd` first (it not available already)
+2. Copy `./systemd/gobark.service` to `/lib/systemd/system` (and tweak it to your needs)
+3. Start the service:
+
+   ```bash
+   sudo systemctl enable gobark
+   sudo systemctl start gobark
+   ```
+
+### As a Docker container
+
+Available docker registries:
+* https://hub.docker.com/repository/docker/aicrosoft/gobark#
+
+Visit https://hub.docker.com/repository/docker/aicrosoft/gobark# to fetch the latest docker image.  
+With `/path/to/config.json` your local configuration file, run:
+
+```bash
+docker run \
+-p 996:996/udp \
+-d --name gobark --restart=always \
+-v /path/to/config.json:/config.json \
+aicrosoft/gobark:latest
+```
+
+### As a Windows service
+
+1. Download the latest version of [NSSM](https://nssm.cc/download)
+
+2. In an administrative prompt, from the folder where NSSM was downloaded, e.g. `C:\Downloads\nssm\` **win64**, run:
+
+   ```
+   nssm install YOURSERVICENAME
+   ```
+
+3. Follow the interface to configure the service. In the "Application" tab just indicate where the `gobark.exe` file is. Optionally you can also define a description on the "Details" tab and define a log file on the "I/O" tab. Finish by clicking on the "Install service" button.
+
+4. The service will now start along Windows.
+
+Note: you can uninstall the service by running:
+
+```
+nssm remove YOURSERVICENAME
+```
+
+
 ## Special Thanks
+
+[gobark][110] : good to learn golang example.
+
+[110]: https://github.com/TimothyYe/gobark
 

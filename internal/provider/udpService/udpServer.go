@@ -8,6 +8,7 @@ import (
 
 	"github.com/Aicrosoft/goBark/internal/handler"
 	"github.com/Aicrosoft/goBark/internal/setting"
+	"github.com/Aicrosoft/goBark/pkg/lib"
 )
 
 // UDPServer struct.
@@ -51,6 +52,14 @@ func (server *UDPServer) Start() error {
 			if capEvent != nil {
 				log.Info(fmt.Sprintf("Capture Event Result:%+v", capEvent))
 			}
+
+			// execute webhook when it is enabled
+			if config.Webhook.Enabled {
+				if err := lib.GetWebhook(config).Execute(capEvent); err != nil {
+					return err
+				}
+			}
+
 		}
 
 	}
