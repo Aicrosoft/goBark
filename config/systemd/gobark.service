@@ -1,0 +1,12 @@
+[Unit]
+Description=goBark Service
+After=network.target
+
+[Service]
+ExecStart=/path/to/your/gobark-dir/gobark -c=/path/to/your/gobark-dir/config.json
+Restart=always
+KillMode=process
+RestartSec=2s
+
+[Install]
+WantedBy=multi-user.target
