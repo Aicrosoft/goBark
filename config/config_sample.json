@@ -14,13 +14,22 @@
   "event_messages": [
     {
       "captureReg": "local  IP address (?P<ipv4>((25[0-5]|2[0-4]\\d|[01]?\\d\\d?)\\.){3}(25[0-5]|2[0-4]\\d|[01]?\\d\\d?))",
+      "title": "PPoE dial success",
       "content": "current WAN IPv4 is : $ipv4",
       "value": "$ipv4"
     },
     {
       "captureReg": "(?P<v>.+)",
-      "content": "capturing any message: $v",
+      "title": "other message",
+      "content": "capturing other message: $v",
       "value": "$v"
     }
-  ]
+  ],
+  "use_proxy": false,
+  "socks5_proxy": "",
+  "webhook": {
+    "enabled": false,
+    "url": "https://api.day.app/amF/{{.Title}}/{{.Content}}",
+    "request_body": ""
+  }
 }

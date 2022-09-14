@@ -14,16 +14,11 @@ type EventHandler struct {
 	Configuration *setting.AppSetting
 }
 
-type EventMessage struct {
-	Content string
-	Value   string
-}
-
 func (handler *EventHandler) Init(conf *setting.AppSetting) {
 	handler.Configuration = conf
 }
 
-func (handler *EventHandler) Recive(msg string) *EventMessage {
+func (handler *EventHandler) Recive(msg string) *setting.MessageSetting {
 
 	if handler.isIgnoreThis(msg) {
 		//log.Info("ignore this")
@@ -38,7 +33,7 @@ func (handler *EventHandler) Recive(msg string) *EventMessage {
 
 }
 
-func (handler *EventHandler) captureEvent(msg string) *EventMessage {
+func (handler *EventHandler) captureEvent(msg string) *setting.MessageSetting {
 	evntSettings := handler.Configuration.EventMessages
 	if (len(evntSettings)) == 0 {
 		return nil
@@ -53,8 +48,8 @@ func (handler *EventHandler) captureEvent(msg string) *EventMessage {
 	return nil
 }
 
-func analyzeEvent(msg string, cset *setting.UDPEventSetting) *EventMessage {
-	reg := regexp.MustCompile(cset.CaptureReg)
+func analyzeEvent(msg string, ues *setting.UDPEventSetting) *setting.MessageSetting {
+	reg := regexp.MustCompile(ues.CaptureReg)
 	matchValues := reg.FindStringSubmatch(msg)
 	groupKeys := reg.SubexpNames()
 	if (len(matchValues) == 0) || (len(matchValues) != len(groupKeys)) {
@@ -67,18 +62,20 @@ func analyzeEvent(msg string, cset *setting.UDPEventSetting) *EventMessage {
 			dic[name] = matchValues[i]
 		}
 	}
-	emsg := EventMessage{}
-	content, value := cset.Content, cset.Value
+	em := setting.MessageSetting{}
+	title, content, value := ues.Title, ues.Content, ues.Value
 
 	for k, v := range dic {
 		log.Debug(fmt.Sprintf("event capture result (k,v) %v : %v", k, v))
+		title = strings.Replace(title, "$"+k, v, -1)
 		content = strings.Replace(content, "$"+k, v, -1)
 		value = strings.Replace(value, "$"+k, v, -1)
 	}
-	emsg.Content = content
-	emsg.Value = value
+	em.Title = title
+	em.Content = content
+	em.Value = value
 
-	return &emsg
+	return &em
 }
 
 func (handler *EventHandler) isIgnoreThis(msg string) bool {

@@ -20,6 +20,15 @@ type AppSetting struct {
 	DisableCaptureMessage  bool              `json:"disable_capture_message"`
 	EventMessageIgnoreKeys []string          `json:"event_message_ignore_keys"`
 	EventMessages          []UDPEventSetting `json:"event_messages"`
+	UseProxy               bool              `json:"use_proxy"`
+	Socks5Proxy            string            `json:"socks5_proxy"`
+	Webhook                WebhookSetting    `json:"webhook"`
+}
+
+type WebhookSetting struct {
+	Enabled     bool   `json:"enabled"`
+	URL         string `json:"url"`
+	RequestBody string `json:"request_body"`
 }
 
 type SocketSetting struct {
@@ -28,10 +37,15 @@ type SocketSetting struct {
 	BlockSize int    `json:"blockSize"`
 }
 
+type MessageSetting struct {
+	Title   string `json:"title"`
+	Content string `json:"content"`
+	Value   string `json:"value"`
+}
+
 type UDPEventSetting struct {
 	CaptureReg string `json:"captureReg"`
-	Content    string `json:"content"`
-	Value      string `json:"value"`
+	MessageSetting
 }
 
 // LoadSetting -- Load settings from config file.
